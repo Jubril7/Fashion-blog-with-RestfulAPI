@@ -4,6 +4,9 @@ import com.example.week_8_task_jubril.DTO.PersonDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 @AllArgsConstructor
@@ -20,7 +23,18 @@ public class Person {
     private String password;
 
 
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Likes> likesSet = new HashSet<>();
 
+
+    public void addLike(Likes like){
+        if (likesSet.contains(like)){
+            likesSet.remove(like);
+        }else {
+            likesSet.add(like);
+        }
+
+    }
 
 
 }

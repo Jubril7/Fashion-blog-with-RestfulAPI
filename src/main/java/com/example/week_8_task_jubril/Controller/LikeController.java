@@ -1,6 +1,7 @@
 package com.example.week_8_task_jubril.Controller;
 
 import com.example.week_8_task_jubril.DTO.PersonDTO;
+import com.example.week_8_task_jubril.Model.Person;
 import com.example.week_8_task_jubril.Services.LikeService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
@@ -17,9 +18,14 @@ public class LikeController {
     }
     @PostMapping("like/{designId}")
     public ResponseEntity<String> updateLike(@PathVariable(value = "designId") Long designId, HttpSession session) {
-        PersonDTO personDTO = (PersonDTO) session.getAttribute("person");
-        String message = likeService.like(personDTO.getPersonId(), designId);
-        return new ResponseEntity<>(message, HttpStatus.CREATED);
+        Person person = (Person) session.getAttribute("person");
+        boolean message = likeService.like(person, designId);
+        if (message){
+            return new ResponseEntity<>("Successfully liked design", HttpStatus.CREATED);
+
+        } else {
+            return new ResponseEntity<>("Successfully unliked design", HttpStatus.CREATED);
+        }
     }
 
     @DeleteMapping("unlike/{likeId}")

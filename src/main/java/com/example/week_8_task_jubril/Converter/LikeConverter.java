@@ -19,6 +19,4 @@ public class LikeConverter {
         likeDTO.setLikeId(likes.getLikeId());
         return likeDTO;
     }
-
-
 }

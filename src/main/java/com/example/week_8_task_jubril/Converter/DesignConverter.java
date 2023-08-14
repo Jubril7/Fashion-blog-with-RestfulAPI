@@ -32,6 +32,8 @@ public class DesignConverter {
         designDTO.setDesignPrice(design.getDesignPrice());
         designDTO.setCategoryId(design.getCategoryId());
         designDTO.setCommentSet(design.getCommentSet());
+        System.out.println("<<<<<>>>>");
+        designDTO.setLikes(design.getLikes().size());
         return designDTO;
     }
 }

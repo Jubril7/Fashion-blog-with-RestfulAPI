@@ -9,7 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -32,5 +34,17 @@ public class Design {
     private Long categoryId;
     @OneToMany
     private List<Comment> commentSet = new ArrayList<>();
+
+    @OneToMany(mappedBy = "design", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Likes> likes = new HashSet<>();
+
+    public void addLike(Likes like){
+        if (likes.contains(like)){
+            likes.remove(like);
+        }else {
+            likes.add(like);
+        }
+
+    }
 
 }
